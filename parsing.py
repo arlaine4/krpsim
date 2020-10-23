@@ -1,5 +1,48 @@
 import sys
 
+def create_furniture_list(raw):
+    list_s = {}
+    if ';' in raw:
+        first = raw.split(';')
+        for elem in first:
+            pars = elem.split(':')
+            pars[1] = pars[1].replace('\n', '')
+            list_s[pars[0]] = int(pars[1])
+    else:
+        pars = raw.split(':')
+        pars[1] = pars[1].replace('\n', '')
+        list_s[pars[0]] = int(pars[1])
+    return list_s
+
+
+def parse_process(name, raw, cycle):
+    i = raw.find('(')
+    j = raw.find(')')
+    needed = raw[i+1:j]
+    needed = create_furniture_list(needed)
+    next = raw[j+1::]
+    i = next.find('(')
+    j = next.find(')')
+    result = next[i+1:j]
+    result = create_furniture_list(result)
+    return [name, needed, result, cycle]
+
 def init_stocks(ressource):
     """Parsing du fichier source et initialisation des stocks"""
+    stock = {}
+    process = []
+    with open(ressource, 'r') as file:
+        tmp = file.readline()
+        while tmp:
+            # print(tmp)
+            pars = tmp.split(':') if tmp[0] != '#' else ''
+            if (len(pars) == 2) and pars[0] != 'optimize':
+                pars[1] = pars[1].replace('\n', '')
+                stock[pars[0]] = int(pars[1])
+            elif (len(pars) > 2):
+                process.append(parse_process(pars[0], tmp, pars[-1]))
+            tmp = file.readline()
+            
+        print(stock)
+        print(process)
     return None

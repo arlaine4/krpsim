@@ -1,4 +1,5 @@
 import sys
+import parsing
 
 class   Process():
     def __init__(self):
@@ -10,7 +11,7 @@ class   Stock():
         self.list_stocks = [] #liste de liste avec nom du stock et qty + mettre a jour a chque action de process
 
     def init_stocks(self, ressource):
-        self.set_list_stocks(self, ressource)
+        self.set_list_stocks(ressource)
 
 #-------------------------------------------------------------------------
 # Getteurs et setteurs
