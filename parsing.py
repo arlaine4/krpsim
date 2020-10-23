@@ -25,7 +25,7 @@ def parse_process(name, raw, cycle):
     j = next.find(')')
     result = next[i+1:j]
     result = create_furniture_list(result)
-    return [name, needed, result, cycle]
+    return [name, needed, result, int(cycle.replace('\n', ''))]
 
 def init_stocks(ressource):
     """Parsing du fichier source et initialisation des stocks"""
