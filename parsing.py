@@ -28,21 +28,32 @@ def parse_process(name, raw, cycle):
     return [name, needed, result, int(cycle.replace('\n', ''))]
 
 def init_stocks(ressource):
-    """Parsing du fichier source et initialisation des stocks"""
-    stock = {}
-    process = []
-    with open(ressource, 'r') as file:
-        tmp = file.readline()
-        while tmp:
-            # print(tmp)
-            pars = tmp.split(':') if tmp[0] != '#' else ''
-            if (len(pars) == 2) and pars[0] != 'optimize':
-                pars[1] = pars[1].replace('\n', '')
-                stock[pars[0]] = int(pars[1])
-            elif (len(pars) > 2):
-                process.append(parse_process(pars[0], tmp, pars[-1]))
-            tmp = file.readline()
-            
-        print(stock)
-        print(process)
-    return None
+	"""Parsing du fichier source et initialisation des stocks"""
+	stock = {}
+	process = []
+	optimize = False
+	with open(ressource, 'r') as file:
+		tmp = file.readline()
+		while tmp:
+			# print(tmp)
+			pars = tmp.split(':') if tmp[0] != '#' else ''
+			if (len(pars) == 2) and pars[0] != 'optimize':
+				pars[1] = pars[1].replace('\n', '')
+				stock[pars[0]] = int(pars[1])
+			elif (len(pars) > 2):
+				process.append(parse_process(pars[0], tmp, pars[-1]))
+			tmp = file.readline()
+			if "optimize:" in tmp and tmp[0] != '#':
+				optimize = True
+	if not optimize:
+		print("Optimize info missing, stopping now.")
+		sys.exit()
+	if len(stock) == 0:
+		print("There is no stock available, stopping now.")
+		sys.exit()
+	if len(process) == 0:
+		print("There is no process to optimize, stopping now.")
+		sys.exit()
+	print(stock)
+	print(process)
+	return None
