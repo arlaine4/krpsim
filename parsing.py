@@ -31,11 +31,10 @@ def init_stocks(ressource):
 	"""Parsing du fichier source et initialisation des stocks"""
 	stock = {}
 	process = []
-	optimize = False
+	optimize = {}
 	with open(ressource, 'r') as file:
 		tmp = file.readline()
 		while tmp:
-			# print(tmp)
 			pars = tmp.split(':') if tmp[0] != '#' else ''
 			if (len(pars) == 2) and pars[0] != 'optimize':
 				pars[1] = pars[1].replace('\n', '')
@@ -44,7 +43,11 @@ def init_stocks(ressource):
 				process.append(parse_process(pars[0], tmp, pars[-1]))
 			tmp = file.readline()
 			if "optimize:" in tmp and tmp[0] != '#':
-				optimize = True
+				#Faire une boucle si jamais on doit optimize plusieurs elems
+				index = tmp.find(':')
+				optimize[tmp[0:index]] = tmp[index::].replace('\n', '')
+				optimize["optimize"] = optimize["optimize"].replace('(', '')
+				optimize["optimize"] = optimize["optimize"].replace(')', '')
 	if not optimize:
 		print("Optimize info missing, stopping now.")
 		sys.exit()
@@ -54,6 +57,4 @@ def init_stocks(ressource):
 	if len(process) == 0:
 		print("There is no process to optimize, stopping now.")
 		sys.exit()
-	print(stock)
-	print(process)
-	return None
+	return stock, process, optimize
