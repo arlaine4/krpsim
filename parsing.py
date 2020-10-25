@@ -32,6 +32,8 @@ def init_stocks(ressource):
 	stock = {}
 	process = []
 	optimize = {}
+	#correct bug for ex process: manger:(bonbon:1)::10
+	#it means there is no result, just using stocks and time
 	with open(ressource, 'r') as file:
 		tmp = file.readline()
 		while tmp:
