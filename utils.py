@@ -14,6 +14,6 @@ def print_pre_infos(stocks, process, optimize):
     print("#-------------------------------------------#\n")
     print("- Stocks :\n")
     for tmp in stocks:
-        print(
+        print(tmp)
     print(stocks)
 
