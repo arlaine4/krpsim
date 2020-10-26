@@ -10,11 +10,11 @@ def start_opti_process(stocks, process, optimize, delay):
         print("Error in delay parameter, please enter a correct input.")
         sys.exit(0)
     len_pro = utils.get_len_process(process)
-    print("Before optimization content :")
-    print("File is \033[32mvalid\033[0m, {} stocks, {} processes and {} to optimize" \
-	.format(len(stocks), len_pro, len(optimize)))
-    main_walk, stocks, timer = optimize_processes(stocks, process, optimize, delay)
-    utils.print_final_result(main_walk, stocks, timer)
+    #print("Before optimization content :")
+    #print("File is \033[32mvalid\033[0m, {} stocks, {} processes and {} to optimize" \
+	#.format(len(stocks), len_pro, len(optimize)))
+    utils.print_pre_infos(stocks, process, optimize)
+    #main_walk, stocks, timer = optimize_processes(stocks, process, optimize, delay)
 
 def check_process_callable(process, stocks):
     """Check si on peut appeller le process suivant ou si les stocks ne le permettent pas"""
@@ -34,12 +34,9 @@ def call_process(main_walk, stocks, process, id_p):
     """Appel des process et update des stocks, de l'id du process,
     du timer et de la main_walk"""
     #UPDATE LA MAIN WALK
-    print("process in call process  : ",process[id_p])
+    #print("process in call process  : ",process[id_p])
     requirements = process[id_p][1]
     results = process[id_p][2]
-    #check if the process is not time consuming otherwise the line below will make
-    #the program crash
-    #time = process[id_p][3]
     list_requirements = []
     for name in requirements: #recup cle dico
     	list_requirements.append(name)
@@ -69,7 +66,7 @@ def optimize_processes(stocks, process, optimize, delay):
     while round(time.time() - start_time, 2) < delay:
         if check_process_callable(process[id_p], stocks):
             main_walk, stocks, id_p = call_process(main_walk, stocks, process, id_p)
-            print("stock after call process : ", stocks)
+            #print("stock after call process : ", stocks)
         elif not check_process_callable(process[id_p], stocks):
             break
         if id_p == len(process):
