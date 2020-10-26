@@ -1,4 +1,5 @@
 import sys
+import re
 
 def create_furniture_list(raw):
     list_s = {}
@@ -30,11 +31,17 @@ def parse_process(name, raw, cycle):
         result = create_furniture_list(result)
     return [name, needed, result, int(cycle.replace('\n', ''))]
 
+def get_optimized(optimize, str):
+    tmp = str.split(';')
+    for elem in tmp:
+        optimize.append(re.sub('[^a-zA-Z]', '', elem))
+    return optimize
+
 def init_stocks(ressource):
     """Parsing du fichier source et initialisation des stocks"""
     stock = {}
     process = []
-    optimize = {}
+    optimize = []
     #correct bug for ex process: manger:(bonbon:1)::10
     #it means there is no result, just using stocks and time
     with open(ressource, 'r') as file:
@@ -46,12 +53,9 @@ def init_stocks(ressource):
                 stock[pars[0]] = int(pars[1])
             elif (len(pars) > 2):
                 process.append(parse_process(pars[0], tmp, pars[-1]))
+            if len(pars) >= 2 and pars[0] == 'optimize':
+                optimize = get_optimized(optimize, pars[1])
             tmp = file.readline()
-            if "optimize:" in tmp and tmp[0] != '#':
-                index = tmp.find(':')
-                optimize[tmp[0:index]] = tmp[index + 1::].replace('\n', '')
-                optimize["optimize"] = optimize["optimize"].replace('(', '')
-                optimize["optimize"] = optimize["optimize"].replace(')', '')
     if not optimize:
         print("Optimize info missing, stopping now.")
         sys.exit()
