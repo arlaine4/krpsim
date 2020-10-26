@@ -47,7 +47,7 @@ def parse_process(name, raw, cycle):
 def get_optimized(optimize, str):
     tmp = str.split(';')
     for elem in tmp:
-        optimize.append(re.sub('[^a-zA-Z]', '', elem))
+        optimize.append(re.sub('[^a-zA-Z_]', '', elem))
     return optimize
 
 def init_stocks(ressource):
