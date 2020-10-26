@@ -49,7 +49,7 @@ def init_stocks(ressource):
             tmp = file.readline()
             if "optimize:" in tmp and tmp[0] != '#':
                 index = tmp.find(':')
-                optimize[tmp[0:index]] = tmp[index::].replace('\n', '')
+                optimize[tmp[0:index]] = tmp[index + 1::].replace('\n', '')
                 optimize["optimize"] = optimize["optimize"].replace('(', '')
                 optimize["optimize"] = optimize["optimize"].replace(')', '')
     if not optimize:
