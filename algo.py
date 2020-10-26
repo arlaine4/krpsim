@@ -55,9 +55,6 @@ def call_process(main_walk, stocks, process, id_p, timer):
 def optimize_processes(stocks, process, optimize, delay):
     start_time = time.time()
     main_walk = [] #liste de delay a l'arrivee au process et le nom du process
-    #return stocks actualisees et la main_walk + une variable delay que on actualise
-    # de 1 a chaque tour de boucle et de + delay du process si on l'active
-    #boucler tant que les process le permettent si le time n'est pas fourni ???
     timer = 0
     id_p = 0
     continue_ = True
@@ -70,6 +67,13 @@ def optimize_processes(stocks, process, optimize, delay):
             id_p = 0
         elif id_p + 1 < len(process) and not check_process_callable(process[id_p], stocks):
             id_p += 1
+    #-------------------------------------------------
+    #Do a function for this
     for elem in main_walk:
         print("{}:{}".format(elem[0], elem[1]))
+    print("\n- \033[4mStocks\033[0m :\n")
+    for elem in stocks:
+        print("  {} => {}".format(elem, stocks[elem]))
+    print()
+    #-------------------------------------------------
     return main_walk, stocks

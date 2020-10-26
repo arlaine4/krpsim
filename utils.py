@@ -53,3 +53,6 @@ def print_pre_infos(stocks, process, optimize):
             for j in range(201, 196):
                 print("\033[38;5;{}m-\033[0m".format(j), end='')
     print("\033[38;5;204m#\033[0m")
+    print("\n")
+    print("- \033[4mMain walk\033[0m :\n")
+    
