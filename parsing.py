@@ -1,6 +1,19 @@
 import sys
 import re
 
+def get_stock_process(stocks, process):
+    visited = []
+    count = len(stocks)
+    for key in stocks:
+        visited.append(key)
+    for i in range(len(process)):
+        if process[i][2] != None:
+            for key in process[i][2]:
+                if key not in visited:
+                    visited.append(key)
+                    count += 1
+    return count
+
 def create_furniture_list(raw):
     list_s = {}
     if ';' in raw:
@@ -42,8 +55,12 @@ def init_stocks(ressource):
     stock = {}
     process = []
     optimize = []
-    #correct bug for ex process: manger:(bonbon:1)::10
-    #it means there is no result, just using stocks and time
+    try :
+        test = open(ressource, 'r')
+        test.close()
+    except:
+        print("Please give a valid file")
+        exit(1)
     with open(ressource, 'r') as file:
         tmp = file.readline()
         while tmp:
