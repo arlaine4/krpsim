@@ -1,5 +1,4 @@
 import parsing as p
-import time
 
 def print_pre_infos(stocks, process, optimize):
     len_stocks = p.get_stock_process(stocks, process)

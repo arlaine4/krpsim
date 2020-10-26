@@ -27,30 +27,30 @@ def check_process_callable(process, stocks):
     return True
 
 def call_process(main_walk, stocks, process, id_p, timer):
-    """Appel des process et update des stocks, de l'id du process,
-    du timer et de la main_walk"""
-    #UPDATE LA MAIN WALK
-    #print("process in call process  : ",process[id_p])
-    requirements = process[id_p][1]
-    results = process[id_p][2]
-    time = process[id_p][3]
-    list_requirements = []
-    for name in requirements: #recup cle dico
-    	list_requirements.append(name)
-    for n in list_requirements: #maj des stocks
-        stocks[n] -= requirements[n]
-    if results is not None:
-        for tmp in results: #ajout results and stocks ou maj si le nom du result exist deja
-            if tmp in stocks:
-                stocks[tmp] += results[tmp]
-            else:
-                stocks[tmp] = results[tmp]
-    if id_p + 1 < len(process): #check si on passe au process suivant ou si on revient au debut
-        id_p += 1
-    else:
-        id_p = 0
-    main_walk.append([timer, process[id_p][0]])
-    return main_walk, stocks, id_p, timer + time
+	"""Appel des process et update des stocks, de l'id du process,
+	du timer et de la main_walk"""
+	#UPDATE LA MAIN WALK
+	#print("process in call process  : ",process[id_p])
+	requirements = process[id_p][1]
+	results = process[id_p][2]
+	time = process[id_p][3]
+	list_requirements = []
+	for name in requirements: #recup cle dico
+		list_requirements.append(name)
+	for n in list_requirements: #maj des stocks
+		stocks[n] -= requirements[n]
+	if results is not None:
+		for tmp in results: #ajout results and stocks ou maj si le nom du result exist deja
+			if tmp in stocks:
+				stocks[tmp] += results[tmp]
+			else:
+				stocks[tmp] = results[tmp]
+	main_walk.append([timer, process[id_p][0]])
+	if id_p + 1 < len(process): #check si on passe au process suivant ou si on revient au debut
+		id_p += 1
+	else:
+		id_p = 0
+	return main_walk, stocks, id_p, timer + time
 
 def optimize_processes(stocks, process, optimize, delay):
     start_time = time.time()
