@@ -9,7 +9,6 @@ def start_opti_process(stocks, process, optimize, delay):
     except:
         print("Error in delay parameter, please enter a correct input.")
         sys.exit(0)
-    len_pro = utils.get_len_process(process)
     #print("Before optimization content :")
     #print("File is \033[32mvalid\033[0m, {} stocks, {} processes and {} to optimize" \
 	#.format(len(stocks), len_pro, len(optimize)))
