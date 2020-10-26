@@ -70,10 +70,10 @@ def optimize_processes(stocks, process, optimize, delay):
         if check_process_callable(process[id_p], stocks):
             main_walk, stocks, id_p = call_process(main_walk, stocks, process, id_p)
             print("stock after call process : ", stocks)
+        elif not check_process_callable(process[id_p], stocks):
+            break
         if id_p == len(process):
             id_p = 0
         elif id_p + 1 < len(process) and not check_process_callable(process[id_p], stocks):
             id_p += 1
-        #else:
-            #break
     return main_walk, stocks, timer
