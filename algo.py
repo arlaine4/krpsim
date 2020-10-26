@@ -9,11 +9,8 @@ def start_opti_process(stocks, process, optimize, delay):
     except:
         print("Error in delay parameter, please enter a correct input.")
         sys.exit(0)
-    #print("Before optimization content :")
-    #print("File is \033[32mvalid\033[0m, {} stocks, {} processes and {} to optimize" \
-	#.format(len(stocks), len_pro, len(optimize)))
     utils.print_pre_infos(stocks, process, optimize)
-    #main_walk, stocks, timer = optimize_processes(stocks, process, optimize, delay)
+    main_walk, stocks, timer = optimize_processes(stocks, process, optimize, delay)
 
 def check_process_callable(process, stocks):
     """Check si on peut appeller le process suivant ou si les stocks ne le permettent pas"""
