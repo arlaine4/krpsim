@@ -15,15 +15,19 @@ def create_furniture_list(raw):
     return list_s
 
 def parse_process(name, raw, cycle):
+    needed = None
+    result = None
     i = raw.find('(')
     j = raw.find(')')
-    needed = raw[i + 1:j]
-    needed = create_furniture_list(needed)
+    if raw[i] == '(' and raw[j] == ')':
+        needed = raw[i + 1:j]
+        needed = create_furniture_list(needed)
     next = raw[j + 1::]
     i = next.find('(')
     j = next.find(')')
-    result = next[i + 1:j]
-    result = create_furniture_list(result)
+    if next[i] == '(' and next[j] == ')':
+        result = next[i + 1:j]
+        result = create_furniture_list(result)
     return [name, needed, result, int(cycle.replace('\n', ''))]
 
 def init_stocks(ressource):
