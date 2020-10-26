@@ -10,7 +10,7 @@ def start_opti_process(stocks, process, optimize, delay):
         print("Error in delay parameter, please enter a correct input.")
         sys.exit(0)
     utils.print_pre_infos(stocks, process, optimize)
-    main_walk, stocks, timer = optimize_processes(stocks, process, optimize, delay)
+    main_walk, stocks = optimize_processes(stocks, process, optimize, delay)
 
 def check_process_callable(process, stocks):
     """Check si on peut appeller le process suivant ou si les stocks ne le permettent pas"""
@@ -26,13 +26,14 @@ def check_process_callable(process, stocks):
                 return False
     return True
 
-def call_process(main_walk, stocks, process, id_p):
+def call_process(main_walk, stocks, process, id_p, timer):
     """Appel des process et update des stocks, de l'id du process,
     du timer et de la main_walk"""
     #UPDATE LA MAIN WALK
     #print("process in call process  : ",process[id_p])
     requirements = process[id_p][1]
     results = process[id_p][2]
+    time = process[id_p][3]
     list_requirements = []
     for name in requirements: #recup cle dico
     	list_requirements.append(name)
@@ -48,7 +49,8 @@ def call_process(main_walk, stocks, process, id_p):
         id_p += 1
     else:
         id_p = 0
-    return main_walk, stocks, id_p,
+    main_walk.append([timer, process[id_p][0]])
+    return main_walk, stocks, id_p, timer + time
 
 def optimize_processes(stocks, process, optimize, delay):
     start_time = time.time()
@@ -61,12 +63,13 @@ def optimize_processes(stocks, process, optimize, delay):
     continue_ = True
     while round(time.time() - start_time, 2) < delay:
         if check_process_callable(process[id_p], stocks):
-            main_walk, stocks, id_p = call_process(main_walk, stocks, process, id_p)
-            #print("stock after call process : ", stocks)
+            main_walk, stocks, id_p, timer = call_process(main_walk, stocks, process, id_p, timer)
         elif not check_process_callable(process[id_p], stocks):
             break
         if id_p == len(process):
             id_p = 0
         elif id_p + 1 < len(process) and not check_process_callable(process[id_p], stocks):
             id_p += 1
-    return main_walk, stocks, timer
+    for elem in main_walk:
+        print("{}:{}".format(elem[0], elem[1]))
+    return main_walk, stocks
