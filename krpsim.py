@@ -7,5 +7,4 @@ if __name__ == "__main__":
         print("Wrong number of arguments.")
         sys.exit()
     stock_lst, process_lst, optimize = parsing.init_stocks(sys.argv[1])
-    print(optimize)
     algo.start_opti_process(stock_lst, process_lst, optimize, sys.argv[2])
