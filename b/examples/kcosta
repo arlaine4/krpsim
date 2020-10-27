@@ -1,0 +1,9 @@
+villagers:20
+skeletons:10
+corpses:0
+
+reproduce:(villagers:2):(villagers:3):10
+raise_skeletons:(corpses:3):(skeletons:3):10
+raid_villagers:(skeletons:5;villagers:10):(corpses:8;villagers:2):100
+
+optimize:(skeletons)

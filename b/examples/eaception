@@ -1,0 +1,19 @@
+#
+# inception demo - krpsim
+#
+# stock      name:quantity
+clock:1
+minute: 12
+#
+# process   name:(need1:qty1;need2:qty2;[...]):(result1:qty1;result2:qty2;[...]):delay
+#
+sell_clock:(clock:1):(dollar:1):1
+dream_hour:(minute:1;dream:2):(hour:1;dream:2):1
+dream_day:(second:1;dream:3):(day:1;dream:3):1
+end_dream:(dream:3):(seeing_kids:2):60
+#
+# optimize time for no process possible (eating stock, produce all possible),
+# or maximize some products over a long delay
+# optimize:(time|stock1;time|stock2;...)
+#
+optimize:(seeing_kids)

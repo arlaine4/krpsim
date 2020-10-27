@@ -1,0 +1,7 @@
+:10
+
+achat_materiel:(euro:8):(materiel:1):10
+realisation_produit:(materiel:1):(produit:1):30
+livraison:(produit:1):(client_content:1):20
+
+optimize:(time;client_content)

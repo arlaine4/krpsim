@@ -1,0 +1,11 @@
+# easy
+euro:100
+kid:1
+#
+#
+achat_cotillon:(euro:2;kid:1):(happiness:6;kid:1):2
+achat_clown:(euro:55;kid:1):(happiness:500;kid:1):30
+achat_serpentin:(euro:10;kid:1):(happiness:80;kid:1):10
+achat_confetti:(euro:1;kid:1):(happiness:2;kid:1):1
+#
+optimize:(happiness)

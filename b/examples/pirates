@@ -1,0 +1,8 @@
+dollars:50000
+buy_boat:(dollars:30000):(boat:1):1000
+buy_map:(dollars:100):(map:1):10
+engage_pirate:(dollars:2000):(crew:1):100
+find_treasure:(boat:1;crew:5;map:1):(treasure:1):1
+sell_treasure:(treasure:1):(reputation:1000000):1
+share_treasure:(treasure:1):(friendship:1):1
+optimize:(friendship)
