@@ -3,18 +3,15 @@ import parsing
 import time
 import utils
 
-def start_opti_process(stocks, process, optimize, delay, file_name):
+"""def start_opti_process(stocks, process, optimize, delay, file_name):
     try:
         delay = int(delay)
     except:
         print("Error in delay parameter, please enter a correct input.")
         sys.exit(0)
-    utils.print_pre_infos(stocks, process, optimize)
-    main_walk, stocks = optimize_processes(stocks, process, optimize, delay)
-    utils.create_log(main_walk, stocks, process, file_name)
 
 def check_process_callable(process, stocks):
-    """Check si on peut appeller le process suivant ou si les stocks ne le permettent pas"""
+    ""Check si on peut appeller le process suivant ou si les stocks ne le permettent pas""
     requirements = process[1]
     list_elems = []
     for elem in requirements: #get dico keys from requirements
@@ -53,22 +50,32 @@ def call_process(main_walk, stocks, process, id_p, timer):
 		id_p = 0
 	return main_walk, stocks, id_p, timer + time
 
-def optimize_processes(stocks, process, optimize, delay):
-    start_time = time.time()
-    main_walk = [] #liste de delay a l'arrivee au process et le nom du process
-    timer = 0
+def check_optimize_in_dico(optimize, elem):
+    lst_optimize = []
+    for i in range(len(optimize)):
+        lst_optimize.append(optimize[i])
+    j = 0
+    for name in lst_optimize:
+        if name in elem:
+            return True
+    return False
+
+def get_optimize_req(optimize, process):
+    req = []
     id_p = 0
-    continue_ = True
-    while round(time.time() - start_time, 2) < delay:
-        if check_process_callable(process[id_p], stocks):
-            main_walk, stocks, id_p, timer = call_process(main_walk, stocks, process, id_p, timer)
-        elif not check_process_callable(process[id_p], stocks):
-            break
-        if id_p == len(process):
-            id_p = 0
-        elif id_p + 1 < len(process) and not check_process_callable(process[id_p], stocks):
-            id_p += 1
-    #-------------------------------------------------
+    i = 0
+    for elem in process:
+        if elem[2]:
+            bool_ = check_optimize_in_dico(optimize, elem[2])
+            if bool_:
+                req = elem[2]
+                id_p = i
+                return req, id_p
+            else:
+                pass
+        i += 1
+
+    """#-------------------------------------------------
     #Do a function for this
     for elem in main_walk:
         print("{}:{}".format(elem[0], elem[1]))
@@ -76,5 +83,4 @@ def optimize_processes(stocks, process, optimize, delay):
     for elem in stocks:
         print("  {} => {}".format(elem, stocks[elem]))
     print()
-    #-------------------------------------------------
-    return main_walk, stocks
+    #-------------------------------------------------"""
