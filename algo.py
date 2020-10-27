@@ -3,7 +3,7 @@ import parsing
 import time
 import utils
 
-def start_opti_process(stocks, process, optimize, delay):
+def start_opti_process(stocks, process, optimize, delay, file_name):
     try:
         delay = int(delay)
     except:
@@ -11,6 +11,7 @@ def start_opti_process(stocks, process, optimize, delay):
         sys.exit(0)
     utils.print_pre_infos(stocks, process, optimize)
     main_walk, stocks = optimize_processes(stocks, process, optimize, delay)
+    utils.create_log(main_walk, stocks, process, file_name)
 
 def check_process_callable(process, stocks):
     """Check si on peut appeller le process suivant ou si les stocks ne le permettent pas"""

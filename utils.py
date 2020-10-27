@@ -1,5 +1,22 @@
 import parsing as p
+import argparse
 import time
+
+def create_log(main_walk, stocks, process, file_name):
+    fd = open(file_name + '.txt', 'w+')
+    fd.write('main_walk :\n\n')
+    for epoch in main_walk:
+        fd.write(str(epoch) + '\n')
+    fd.write("\nstocks:\n\n")
+    for epoch in stocks:
+        fd.write(str(epoch) + ' : ' + str(stocks[epoch]) + '\n')
+
+def get_args_argparse():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('file', type=str, help='configuration file')
+    parser.add_argument('time', type=int, help='delay')
+    options = parser.parse_args()
+    return options
 
 def print_pre_infos(stocks, process, optimize):
     len_stocks = p.get_stock_process(stocks, process)
