@@ -59,24 +59,33 @@ def get_prio_process(process, optimize):
     prio_needs = []
     tmp_prio = []
     i = 0
-    while i < 4:
+    while i < 1:
         opti_needs, id_opti = get_optimize_req(tmp_opt, process)
-        j = 0
         for elem in process:
             nb_present = 0
             for need in opti_needs:
                 if elem[2]:
-                    index = j
-                    nb_present += 1
-            j += 1
-        process.pop(index)
-        if nb_present == len(opti_needs):
-            prio_process.append(elem)
+                    if need in elem[2]:
+                        nb_present += 1
+            if nb_present == len(opti_needs):
+                prio_process.append(elem)
         i += 1
-        new_opti_needs = bubble_sort_process(prio_process, opti_needs)
-        #print(new_opti_needs)
-        prio_needs.append(new_opti_needs)
-        tmp_opt = list(new_opti_needs[1].keys())
+        for elem in prio_process:   # PRINT
+            print(elem)             # DEBUG
+        while 1:                                                                #
+            if len(prio_process) > 0:                                           #
+                new_opti_needs = bubble_sort_process(prio_process, opti_needs)  # Supprime l'element prioritaire de la list
+            if len(prio_process) == 0:                                          #
+                break                                                           #
+            for j in range(len(prio_process)):                                  # pour creer une nouvelle list
+                if prio_process[j] == new_opti_needs:                           # trier par priorite de process
+                    prio_process.pop(j)                                         #
+                    break                                                       #
+            prio_needs.append(new_opti_needs)                                   #
+        print ("sorted:")           # -----
+        for elem in prio_needs:     # PRINT
+            print(elem)             # DEBUG
+        # tmp_opt = list(new_opti_needs[1].keys())
     #print(prio_needs)
     #pro = None
     #for elem in prio_process:
