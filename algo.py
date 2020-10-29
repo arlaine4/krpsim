@@ -3,6 +3,10 @@ import parsing
 import time
 import utils
 
+def start_opti_process(stocks, process, optimize, delay, file_name):
+    opti_needs, id_opti = parsing.get_optimize_req(optimize, process)
+    prio_process = parsing.get_prio_process(opti_needs, process, optimize)
+
 """def start_opti_process(stocks, process, optimize, delay, file_name):
     try:
         delay = int(delay)
@@ -25,8 +29,8 @@ def check_process_callable(process, stocks):
     return True
 
 def call_process(main_walk, stocks, process, id_p, timer):
-	"""Appel des process et update des stocks, de l'id du process,
-	du timer et de la main_walk"""
+	""Appel des process et update des stocks, de l'id du process,
+	du timer et de la main_walk""
 	#UPDATE LA MAIN WALK
 	#print("process in call process  : ",process[id_p])
 	requirements = process[id_p][1]
@@ -75,7 +79,7 @@ def get_optimize_req(optimize, process):
                 pass
         i += 1
 
-    """#-------------------------------------------------
+    ""#-------------------------------------------------
     #Do a function for this
     for elem in main_walk:
         print("{}:{}".format(elem[0], elem[1]))

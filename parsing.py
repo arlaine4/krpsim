@@ -1,6 +1,34 @@
 import sys
 import re
 
+def check_optimize_in_dico(optimize, elem):
+    lst_optimize = []
+    for i in range(len(optimize)):
+        lst_optimize.append(optimize[i])
+    for name in lst_optimize:
+        if name in elem:
+            return True
+    return False
+
+def get_optimize_req(optimize, process):
+    req = []
+    id_p = 0
+    i = 0
+    for elem in process:
+        if elem[2]:
+            bool_ = check_optimize_in_dico(optimize, elem[2])
+            if bool_:
+                req = elem[1]
+                id_p = i
+                return req, id_p
+        else:
+            pass
+        i += 1
+    return None, -1
+
+def get_prio_process(opti_needs, process, optimize):
+    return
+
 def get_stock_process(stocks, process):
     visited = []
     count = len(stocks)
