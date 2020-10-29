@@ -1,5 +1,6 @@
 import sys
 import re
+from copy import deepcopy
 
 def check_optimize_in_dico(optimize, elem):
     lst_optimize = []
@@ -50,21 +51,25 @@ def bubble_sort_process(process, opti_needs):
     else:
         return tmp_lst["ERROR IN BUBBLE SORT PROCESS"]
 
-def get_prio_process(opti_needs, process, optimize):
-    print(opti_needs, '\n', optimize)
+def get_prio_process(process, optimize):
+    tmp_opt = optimize
     next_needed = []
     prio_process = []
     tmp_prio = []
-    for elem in process:
-        nb_present = 0
-        for need in opti_needs:
-            if elem[2]:
-                if need in elem[2]:
-                    nb_present += 1
-        if nb_present == len(opti_needs):
-            prio_process.append(elem)
-    #for e in prio_process:
-        #tmp_prio.append(bubble_sort_process(prio_process, opti_needs))
+    while 1:
+        if tmp_opt == optimize:
+            
+        opti_needs, id_opti = parsing.get_optimize_req(tmp_opt, process)
+        for elem in process:
+            nb_present = 0
+            for need in opti_needs:
+                if elem[2]:
+                    if need in elem[2]:
+                        nb_present += 1
+            if nb_present == len(opti_needs):
+                prio_process.append(elem)
+        for e in prio_process:
+            tmp_prio.append(bubble_sort_process(prio_process, opti_needs))
     print(tmp_prio)
     print(prio_process)
     return
