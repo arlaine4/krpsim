@@ -27,7 +27,8 @@ def get_optimize_req(optimize, process):
     return None, -1
 
 def get_prio_process(opti_needs, process, optimize):
-    return
+    prio_process = []
+    
 
 def get_stock_process(stocks, process):
     visited = []
