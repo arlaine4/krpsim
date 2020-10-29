@@ -26,11 +26,48 @@ def get_optimize_req(optimize, process):
         i += 1
     return None, -1
 
+def bubble_sort_process(process, opti_needs):
+    tmp_lst = []
+    nb = 20000
+    for elem in process:
+        if len(elem[1]) < nb:
+            nb = len(elem[1])
+    for elem in process:
+        if len(elem[1]) == nb:
+            tmp_lst.append(elem)
+    if len(tmp_lst) > 1:
+        i = 0
+        index_prio = 0
+        tmp_sum = sum(tmp_lst[0][1].values())
+        while i < len(tmp_lst):
+            if sum(tmp_lst[i][1].values()) < tmp_sum:
+                index_prio = i
+                tmp_sum = sum(tmp_lst[i][1].values())
+            i += 1
+        return tmp_sum[index_prio]
+    if tmp_lst[0]:
+        return tmp_lst[0]
+    else:
+        return tmp_lst["ERROR IN BUBBLE SORT PROCESS"]
+
 def get_prio_process(opti_needs, process, optimize):
     print(opti_needs, '\n', optimize)
-    next_needed = ""
+    next_needed = []
     prio_process = []
-    
+    tmp_prio = []
+    for elem in process:
+        nb_present = 0
+        for need in opti_needs:
+            if elem[2]:
+                if need in elem[2]:
+                    nb_present += 1
+        if nb_present == len(opti_needs):
+            prio_process.append(elem)
+    #for e in prio_process:
+        #tmp_prio.append(bubble_sort_process(prio_process, opti_needs))
+    print(tmp_prio)
+    print(prio_process)
+    return
 
 def get_stock_process(stocks, process):
     visited = []
