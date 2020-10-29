@@ -41,22 +41,50 @@ def bubble_sort_process(process, opti_needs):
         index_prio = 0
         tmp_sum = sum(tmp_lst[0][1].values())
         while i < len(tmp_lst):
+            #print(sum(tmp_lst[i][1].values()), tmp_sum)
             if sum(tmp_lst[i][1].values()) < tmp_sum:
                 index_prio = i
                 tmp_sum = sum(tmp_lst[i][1].values())
             i += 1
-        return tmp_sum[index_prio]
+        return tmp_lst[index_prio]
     if tmp_lst[0]:
         return tmp_lst[0]
     else:
-        return tmp_lst["ERROR IN BUBBLE SORT PROCESS"]
+        return None
 
 def get_prio_process(process, optimize):
     tmp_opt = optimize
     next_needed = []
     prio_process = []
+    prio_needs = []
     tmp_prio = []
-    while 1:
+    i = 0
+    while i < 4:
+        opti_needs, id_opti = get_optimize_req(tmp_opt, process)
+        j = 0
+        for elem in process:
+            nb_present = 0
+            for need in opti_needs:
+                if elem[2]:
+                    index = j
+                    nb_present += 1
+            j += 1
+        process.pop(index)
+        if nb_present == len(opti_needs):
+            prio_process.append(elem)
+        i += 1
+        new_opti_needs = bubble_sort_process(prio_process, opti_needs)
+        #print(new_opti_needs)
+        prio_needs.append(new_opti_needs)
+        tmp_opt = list(new_opti_needs[1].keys())
+    #print(prio_needs)
+    #pro = None
+    #for elem in prio_process:
+        #pro = bubble_sort_process(prio_process, opti_needs)
+        #tmp_prio.append(pro)
+    #for elem in tmp_prio:
+        #print(elem)
+    """while 1:
         if tmp_opt == optimize:
             
         opti_needs, id_opti = parsing.get_optimize_req(tmp_opt, process)
@@ -68,10 +96,9 @@ def get_prio_process(process, optimize):
                         nb_present += 1
             if nb_present == len(opti_needs):
                 prio_process.append(elem)
-        for e in prio_process:
-            tmp_prio.append(bubble_sort_process(prio_process, opti_needs))
-    print(tmp_prio)
-    print(prio_process)
+        #tmp_opt = bubble_sort_process(prio_process, opti_needs)
+            #tmp_prio.append(bubble_sort_process(prio_process, opti_needs))
+            #print(tmp_prio)"""
     return
 
 def get_stock_process(stocks, process):
