@@ -27,6 +27,8 @@ def get_optimize_req(optimize, process):
     return None, -1
 
 def get_prio_process(opti_needs, process, optimize):
+    print(opti_needs, '\n', optimize)
+    next_needed = ""
     prio_process = []
     
 
