@@ -4,7 +4,7 @@ import time
 import utils
 
 def start_opti_process(stocks, process, optimize, delay, file_name):
-    prio_process = parsing.get_prio_process(process, optimize)
+	prio_process = parsing.get_prio_process(process, optimize)
 
 """def start_opti_process(stocks, process, optimize, delay, file_name):
     try:

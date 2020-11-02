@@ -41,7 +41,6 @@ def bubble_sort_process(process, opti_needs):
         index_prio = 0
         tmp_sum = sum(tmp_lst[0][1].values())
         while i < len(tmp_lst):
-            #print(sum(tmp_lst[i][1].values()), tmp_sum)
             if sum(tmp_lst[i][1].values()) < tmp_sum:
                 index_prio = i
                 tmp_sum = sum(tmp_lst[i][1].values())
@@ -85,30 +84,7 @@ def get_prio_process(process, optimize):
         print ("sorted:")           # -----
         for elem in prio_needs:     # PRINT
             print(elem)             # DEBUG
-        # tmp_opt = list(new_opti_needs[1].keys())
-    #print(prio_needs)
-    #pro = None
-    #for elem in prio_process:
-        #pro = bubble_sort_process(prio_process, opti_needs)
-        #tmp_prio.append(pro)
-    #for elem in tmp_prio:
-        #print(elem)
-    """while 1:
-        if tmp_opt == optimize:
-            
-        opti_needs, id_opti = parsing.get_optimize_req(tmp_opt, process)
-        for elem in process:
-            nb_present = 0
-            for need in opti_needs:
-                if elem[2]:
-                    if need in elem[2]:
-                        nb_present += 1
-            if nb_present == len(opti_needs):
-                prio_process.append(elem)
-        #tmp_opt = bubble_sort_process(prio_process, opti_needs)
-            #tmp_prio.append(bubble_sort_process(prio_process, opti_needs))
-            #print(tmp_prio)"""
-    return
+    return prio_needs
 
 def get_stock_process(stocks, process):
     visited = []
