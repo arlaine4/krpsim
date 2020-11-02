@@ -69,8 +69,8 @@ def get_prio_process(process, optimize):
             if nb_present == len(opti_needs):
                 prio_process.append(elem)
         i += 1
-        for elem in prio_process:   # PRINT
-            print(elem)             # DEBUG
+        #for elem in prio_process:   # PRINT
+            #print(elem)             # DEBUG
         while 1:                                                                #
             if len(prio_process) > 0:                                           #
                 new_opti_needs = bubble_sort_process(prio_process, opti_needs)  # Supprime l'element prioritaire de la list
@@ -81,9 +81,9 @@ def get_prio_process(process, optimize):
                     prio_process.pop(j)                                         #
                     break                                                       #
             prio_needs.append(new_opti_needs)                                   #
-        print ("sorted:")           # -----
-        for elem in prio_needs:     # PRINT
-            print(elem)             # DEBUG
+        #print ("sorted:")           # -----
+        #for elem in prio_needs:     # PRINT
+            #print(elem)             # DEBUG
     return prio_needs
 
 def get_stock_process(stocks, process):
