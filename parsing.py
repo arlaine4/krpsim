@@ -36,14 +36,32 @@ def get_prio_process(process, optimize):
     tmp_opt = optimize
     opti_needs = []
     prio_process = []
+    tmp = []
+    id_opti = -1
     i = 0
     while i < 100:
-        opti_needs, id_opti = get_optimize_req(tmp_opt, process)
-        if id_opti != -1 and process[id_opti] not in prio_process:
-            prio_process.append(process[id_opti])
-        if not opti_needs:
-            break
-        tmp_opt = list(opti_needs.keys())
+        # print(len(tmp_opt), tmp_opt)
+        if len(tmp_opt) == 1 or (len(tmp_opt) == 2 and 'time' in tmp_opt):
+            # print('condition 1')
+            opti_needs, id_opti = get_optimize_req(tmp_opt, process)
+            if id_opti != -1 and process[id_opti] not in prio_process:
+                prio_process.append(process[id_opti])
+            if not opti_needs:
+                # print('break')
+                break
+            tmp_opt = list(opti_needs.keys())
+        elif len(tmp_opt) >= 2 and 'time' not in tmp_opt:
+            # print('condition 2')
+            for opt in tmp_opt:
+                tmp = []
+                tmp.append(opt)
+                opti_needs, id_opti = get_optimize_req(tmp, process)
+                if id_opti != -1 and process[id_opti] not in prio_process:
+                    prio_process.append(process[id_opti])
+                if not opti_needs:
+                    # print('break')
+                    break
+                tmp_opt = list(opti_needs.keys())
         # print(tmp_opt)
         # print(process[id_opti])
         i += 1
