@@ -6,6 +6,9 @@ class Process(object):
 		self.score = {} # ??
 		self.delay = delay
 
+	def	__str__(self):
+		return "{} || need -> {} gives -> {}".format(self.name, self.req, self.results)
+
 	def	need(self, name, quantity):
 		self.needs[name] = quantity
 		if name in self.score:
