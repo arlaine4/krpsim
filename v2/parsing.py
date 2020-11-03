@@ -89,10 +89,8 @@ def init_instances_processes(ressource):
     list_node = []
     stock, process, optimize = init_stocks(ressource)
     for elem in process:
-        node = p.Process()
-        node.name = elem[0]
+        node = p.Process(elem[0], elem[3])
         node.req = elem[1]
         node.results = elem[2]
-        node.delay = elem[3]
         list_node.append(node)
     return stock, list_node, optimize
