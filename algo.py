@@ -8,8 +8,6 @@ def start_opti_process(stocks, process, optimize, delay, file_name):
 		prio_process = process
 	else:
 		prio_process = parsing.get_prio_process(process, optimize)
-		req, id_opti = parsing.get_optimize_req(optimize, process)
-		prio_process.insert(0, process[id_opti])
 	try:
 		delay = int(delay)
 	except:
