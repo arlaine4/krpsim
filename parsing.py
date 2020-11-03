@@ -53,38 +53,22 @@ def bubble_sort_process(process, opti_needs):
 
 def get_prio_process(process, optimize):
     tmp_opt = optimize
-    next_needed = []
+    opti_needs = []
     prio_process = []
-    prio_needs = []
-    tmp_prio = []
     i = 0
-    while i < 1:
+    while i < 10:
         opti_needs, id_opti = get_optimize_req(tmp_opt, process)
-        for elem in process:
-            nb_present = 0
-            for need in opti_needs:
-                if elem[2]:
-                    if need in elem[2]:
-                        nb_present += 1
-            if nb_present == len(opti_needs):
-                prio_process.append(elem)
+        if id_opti != -1 and process[id_opti] not in prio_process:
+            prio_process.append(process[id_opti])
+        if not opti_needs:
+            break
+        tmp_opt = list(opti_needs.keys())
+        # print(tmp_opt)
+        # print(process[id_opti])
         i += 1
-        #for elem in prio_process:   # PRINT
-            #print(elem)             # DEBUG
-        while 1:                                                                #
-            if len(prio_process) > 0:                                           #
-                new_opti_needs = bubble_sort_process(prio_process, opti_needs)  # Supprime l'element prioritaire de la list
-            if len(prio_process) == 0:                                          #
-                break                                                           #
-            for j in range(len(prio_process)):                                  # pour creer une nouvelle list
-                if prio_process[j] == new_opti_needs:                           # trier par priorite de process
-                    prio_process.pop(j)                                         #
-                    break                                                       #
-            prio_needs.append(new_opti_needs)                                   #
-        #print ("sorted:")           # -----
-        #for elem in prio_needs:     # PRINT
-            #print(elem)             # DEBUG
-    return prio_needs
+    for elem in prio_process:
+        print(elem)
+    return prio_process
 
 def get_stock_process(stocks, process):
     visited = []
