@@ -15,14 +15,30 @@ def start_opti_process(stocks, process, optimize, delay, file_name):
 		sys.exit(0)
 	optimize_call_processes(stocks, process, prio_process, optimize, delay)
 
+def	no_process_callable(prio_process, stocks):
+	for i in range(len(prio_process)):
+		if check_process_callable(prio_process[i], stocks):
+			return False
+	return True
+
 def	optimize_call_processes(stocks, process, prio_process, optimize, delay):
 	start_time = time.time()
 	main_walk = []
 	id_p = 0
 	timer = 0
 	print(prio_process)
+	while round(time.time() - start_time, 2) < delay:
+		if check_process_callable(prio_process[id_p], stocks):
+			main_walk, stocks, timer = call_process(main_walk, stocks, prio_process, id_p, timer)
+		id_p = refresh_id_p(id_p, prio_process, stocks)
+		print(stocks)
+		if no_process_callable(prio_process, stocks):
+			print(stocks, '\n\n', main_walk)
+			print("Optimization is over, stopping now.")
+			sys.exit(0)
 	"""while round(time.time() - start_time, 2) < delay:
 		print("id : ", id_p)
+		time.sleep(1)
 		if check_process_callable(prio_process[id_p], stocks):
 			main_walk, stocks, timer = call_process(main_walk, stocks, prio_process, id_p, timer)
 			print("process_call : ", process[id_p])
@@ -36,16 +52,6 @@ def	optimize_call_processes(stocks, process, prio_process, optimize, delay):
 		print("stocks : ", stocks)"""
 	#req, id_opti = parsing.get_optimize_req(optimize, process)
 	#prio_process = [process[id_opti] + prio_process] # ??
-	"""while round(time.time() - start_time, 2) < delay:
-		print("id_p : ", id_p)
-		id_p = refresh_id_p(id_p, prio_process, stocks)
-		#check si on peut appeler un autre process dans la liste des prio_process
-		#a partir de id_p
-		if id_p == -1:
-			print("Optimization over, stopping now.")
-			sys.exit(0)
-		main_walk, stocks, timer = call_process(main_walk, stocks, prio_process, id_p, timer)
-		print(stocks)"""
 
 def	refresh_id_p(id_p, prio_process, stocks):
 	#list_req = []
@@ -64,7 +70,7 @@ def	refresh_id_p(id_p, prio_process, stocks):
 						return id_p
 					else:
 						id_p += 1
-		return id_p
+		return -1
 	"""if check_process_callable(prio_process[id_p], stocks):
 		return id_p
 	else:
