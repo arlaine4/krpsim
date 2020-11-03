@@ -1,5 +1,6 @@
 import sys
 import re
+import process as p
 
 def get_stock_process(stocks, process):
     visited = []
@@ -83,3 +84,15 @@ def init_stocks(ressource):
         print("There is no process to optimize, stopping now.")
         sys.exit()
     return stock, process, optimize
+
+def init_instances_processes(ressource):
+    list_node = []
+    stock, process, optimize = init_stocks(ressource)
+    for elem in process:
+        node = p.Process()
+        node.name = elem[0]
+        node.req = elem[1]
+        node.results = elem[2]
+        node.delay = elem[3]
+        list_node.append(node)
+    return stock, list_node, optimize
