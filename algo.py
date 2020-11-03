@@ -22,9 +22,23 @@ def	optimize_call_processes(stocks, process, prio_process, optimize, delay):
 	main_walk = []
 	id_p = 0
 	timer = 0
+	print(prio_process)
+	"""while round(time.time() - start_time, 2) < delay:
+		print("id : ", id_p)
+		if check_process_callable(prio_process[id_p], stocks):
+			main_walk, stocks, timer = call_process(main_walk, stocks, prio_process, id_p, timer)
+			print("process_call : ", process[id_p])
+			id_p = refresh_id_p(id_p, prio_process, stocks)
+		else:
+			id_p = refresh_id_p(id_p, prio_process, stocks)
+		if id_p == -1:
+			print(main_walk)
+			print("Optimization is over, stopping now.")
+			sys.exit(0)
+		print("stocks : ", stocks)"""
 	#req, id_opti = parsing.get_optimize_req(optimize, process)
 	#prio_process = [process[id_opti] + prio_process] # ??
-	while round(time.time() - start_time, 2) < delay:
+	"""while round(time.time() - start_time, 2) < delay:
 		print("id_p : ", id_p)
 		id_p = refresh_id_p(id_p, prio_process, stocks)
 		#check si on peut appeler un autre process dans la liste des prio_process
@@ -33,10 +47,27 @@ def	optimize_call_processes(stocks, process, prio_process, optimize, delay):
 			print("Optimization over, stopping now.")
 			sys.exit(0)
 		main_walk, stocks, timer = call_process(main_walk, stocks, prio_process, id_p, timer)
-		print(stocks)
+		print(stocks)"""
 
 def	refresh_id_p(id_p, prio_process, stocks):
-	if check_process_callable(prio_process[id_p], stocks):
+	#list_req = []
+	#for i in range(id_p, len(prio_process)):
+		#if prio_process[i][2]:
+			#list_req.append(prio_process[i][2])
+	if check_process_callable(prio_process[0], stocks):
+		return 0
+	else:
+		if id_p + 1 < len(prio_process):
+			if check_process_callable(prio_process[id_p + 1], stocks):
+				return id_p + 1
+			else:
+				while id_p < len(prio_process):
+					if check_process_callable(prio_process[id_p], stocks):
+						return id_p
+					else:
+						id_p += 1
+		return id_p
+	"""if check_process_callable(prio_process[id_p], stocks):
 		return id_p
 	else:
 		print(prio_process)
@@ -45,7 +76,7 @@ def	refresh_id_p(id_p, prio_process, stocks):
 				id_p += 1
 			if check_process_callable(prio_process[id_p], stocks):
 				return id_p
-	return -1
+	return -1"""
 
 def	get_process_to_call(stocks, prio_process, id_p):
 	i = id_p
