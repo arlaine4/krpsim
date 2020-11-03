@@ -4,11 +4,16 @@ from copy import deepcopy
 
 def check_optimize_in_dico(optimize, elem):
     lst_optimize = []
+    j = 0
     for i in range(len(optimize)):
         lst_optimize.append(optimize[i])
     for name in lst_optimize:
+        if name == 'time':
+            j += 1
         if name in elem:
-            return True
+            j += 1
+    if j == len(lst_optimize):
+        return True
     return False
 
 def get_optimize_req(optimize, process):
@@ -27,36 +32,12 @@ def get_optimize_req(optimize, process):
         i += 1
     return None, -1
 
-def bubble_sort_process(process, opti_needs):
-    tmp_lst = []
-    nb = 20000
-    for elem in process:
-        if len(elem[1]) < nb:
-            nb = len(elem[1])
-    for elem in process:
-        if len(elem[1]) == nb:
-            tmp_lst.append(elem)
-    if len(tmp_lst) > 1:
-        i = 0
-        index_prio = 0
-        tmp_sum = sum(tmp_lst[0][1].values())
-        while i < len(tmp_lst):
-            if sum(tmp_lst[i][1].values()) < tmp_sum:
-                index_prio = i
-                tmp_sum = sum(tmp_lst[i][1].values())
-            i += 1
-        return tmp_lst[index_prio]
-    if tmp_lst[0]:
-        return tmp_lst[0]
-    else:
-        return None
-
 def get_prio_process(process, optimize):
     tmp_opt = optimize
     opti_needs = []
     prio_process = []
     i = 0
-    while i < 10:
+    while i < 100:
         opti_needs, id_opti = get_optimize_req(tmp_opt, process)
         if id_opti != -1 and process[id_opti] not in prio_process:
             prio_process.append(process[id_opti])
@@ -66,8 +47,6 @@ def get_prio_process(process, optimize):
         # print(tmp_opt)
         # print(process[id_opti])
         i += 1
-    for elem in prio_process:
-        print(elem)
     return prio_process
 
 def get_stock_process(stocks, process):
